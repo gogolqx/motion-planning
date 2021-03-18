@@ -1,0 +1,125 @@
+\documentclass[conference]{IEEEtran}
+% Windows:
+% \usepackage[ansinew]{inputenc}
+% Linux:
+\usepackage[latin1]{inputenc}
+% Mac
+% \usepackage[applemac]{inputenc}
+% If none of the above lines work you can also try the following:
+% \usepackage[utf8]{inputenc}
+
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+% add custom packages
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{tabularx}
+\usepackage{subfig}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\definecolor{tumblue}{rgb}{0, 0.4, 0.74}
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\begin{document}
+\title{Feature Description}
+
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Murat Can \"Uste, Zhaoying Chen}
+\IEEEauthorblockA{Technische Universit\"at M\"unchen\\
+Email: can.ueste@tum.de, zhaoying.chen@tum.de}}
+
+\maketitle
+\section{Definition of Several Maneuvers}
+As is mentioned in the report, we decided to have total 81 time steps in our generated scenarios, which will result in a total timespan of 3.24 seconds. Since the recordings have 25 frames per second, the $\Delta time$ between each time step is 0.04 seconds.
+\subsection{Lane Change}
+\textit{Lane Change} occurs when the ego vehicle changes its lane, comparing two adjacent timesteps.
+\subsection{Cut-in}
+If there is a \textit{Lane Change} and the ego vehicle runs in front of a surrounding vehicle which was preceding the ego vehicle before, it is defined as \textit{Cut-in}.
+\subsection{Brake}
+Compared the acceleration at two adjacent timesteps, if the vehicle decelerates, it is considered as braking during this $\Delta time$.
+
+\section{Description of Each Feature}
+\begin{enumerate}
+\item ego-v-init: the absolute velocity at the beginning.
+\item ego-acc-init: the acceleration at the beginning.
+\item l-rel-pos-init: the relative distance between the rear vehicle and the ego vehicle at the beginning. If there is no rear vehicle at that time, return -1.
+\item p-rel-pos-init: the relative distance between the preceding vehicle and the ego vehicle at the beginning. If there is no preceding vehicle at that time, return -1.
+\item ll-rel-pos-init: the relative distance between the left-rear vehicle and the ego vehicle at the beginning. If there is no left-rear vehicle at that time, return -1.
+\item pl-rel-pos-init: the relative distance between the left-preceding vehicle and the ego vehicle at the beginning. If there is no left-preceding vehicle at that time, return -1.
+\item lr-rel-pos-init: the relative distance between the right-rear vehicle and the ego vehicle at the beginning. If there is no right-rear vehicle at that time, return -1.
+\item pr-rel-pos-init: the relative distance between the right-preceding vehicle and the ego vehicle at the beginning. If there is no right-preceding vehicle at that time, return -1.
+\item surr-veh-count-init: counting the number of surrounding vehicles at the beginning. If there is no surrounding vehicle at that time, return 0.
+\item ego-acc-min: the minimal acceleration of the ego vehicle during the whole timespan.
+\item ego-braketime-max: the total duration of brake. 
+\item ego-v-end: the absolute velocity at the end.
+\item l-rel-pos-end: the relative distance between the rear vehicle and the ego vehicle at the end. If there is no rear vehicle at that time, return -1.
+\item p-rel-pos-end: the relative distance between the preceding vehicle and the ego vehicle at the end. If there is no preceding vehicle at that time, return -1.
+\item ll-rel-pos-end: the relative distance between the left-rear vehicle and the ego vehicle at the end. If there is no left-rear vehicle at that time, return -1.
+\item pl-rel-pos-end: the relative distance between the left-preceding vehicle and the ego vehicle at the end. If there is no left-preceding vehicle at that time, return -1.
+\item lr-rel-pos-end: the relative distance between the right-rear vehicle and the ego vehicle at the end. If there is no right-rear vehicle at that time, return -1.
+\item pr-rel-pos-end: the relative distance between the right-preceding vehicle and the ego vehicle at the end. If there is no right-preceding vehicle at that time, return -1.
+\item surr-veh-count-end: counting the number of surrounding vehicles at the end. If there is no surrounding vehicle at that time, return 0.
+\item ego-lane-change-ts: when the \textit{lane change}maneuver of ego vehicle occurs. If there is no \textit{lane change}, return -1.
+\item ego-lane-change: whether the \textit{lane change} maneuver of ego vehicle occurs. The value of 0/+1/-1 means the EGO has no lane change, turns right and turns left respectively.
+\item cut-in-ts: when the \textit{cut-in}maneuver of ego vehicle occurs. If there is no \textit{cut-in}, return -1.
+\item cut-in-dir: whether the \textit{cut-in} maneuver of ego vehicle occurs. The value of 0/+1/-1 means the EGO has no cut-in, cuts in to left side and cuts in to right side respectively.
+\item cut-in-dist-reduced: if \textit{cut-in} occurs, how many relative distance between the EGO (cutting-in vehicle) and targeted vehicle (the vehicle being cut-in) is reduced. If no \textit{cut-in} occurs, return -1.
+\item min-dhw: the minimal DHW of the scenario.
+\item ego-v-min-dhw: the absolute velocity at the minimal DHW.
+\item ego-acc-min-dhw: the acceleration at the minimal DHW.
+\item l-rel-pos-min-dhw: the relative distance between the rear vehicle and the ego vehicle at the minimal DHW. If there is no rear vehicle at that time, return -1.
+\item p-rel-pos-min-dhw: the relative distance between the preceding vehicle and the ego vehicle at the minimal DHW. If there is no preceding vehicle at that time, return -1.
+\item ll-rel-pos-min-dhw: the relative distance between the left-rear vehicle and the ego vehicle at the minimal DHW. If there is no left-rear vehicle at that time, return -1.
+\item pl-rel-pos-min-dhw: the relative distance between the left-preceding vehicle and the ego vehicle at the minimal DHW. If there is no left-preceding vehicle at that time, return -1.
+\item lr-rel-pos-min-dhw: the relative distance between the right-rear vehicle and the ego vehicle at the minimal DHW. If there is no right-rear vehicle at that time, return -1.
+\item pr-rel-pos-min-dhw: the relative distance between the right-preceding vehicle and the ego vehicle at the minimal DHW. If there is no right-preceding vehicle at that time, return -1.
+\item surr-veh-count-min-dhw: counting the number of surrounding vehicles at the minimal DHW. If there is no surrounding vehicle at that time, return 0.
+\item ego-braketime-until-min-dhw: until the minimal DHW, how long the ego vehicle has braked.
+\item min-thw: the minimal THW of the scenario.
+\item ego-v-min-thw: the absolute velocity at the minimal THW.
+\item ego-acc-min-thw: the acceleration at the minimal THW.
+\item l-rel-pos-min-thw: the relative distance between the rear vehicle and the ego vehicle at the minimal THW. If there is no rear vehicle at that time, return -1.
+\item p-rel-pos-min-thw: the relative distance between the preceding vehicle and the ego vehicle at the minimal THW. If there is no preceding vehicle at that time, return -1.
+\item ll-rel-pos-min-thw: the relative distance between the left-rear vehicle and the ego vehicle at the minimal THW. If there is no left-rear vehicle at that time, return -1.
+\item pl-rel-pos-min-thw: the relative distance between the left-preceding vehicle and the ego vehicle at the minimal THW. If there is no left-preceding vehicle at that time, return -1.
+\item lr-rel-pos-min-thw: the relative distance between the right-rear vehicle and the ego vehicle at the minimal THW. If there is no right-rear vehicle at that time, return -1.
+\item pr-rel-pos-min-thw: the relative distance between the right-preceding vehicle and the ego vehicle at the minimal THW. If there is no right-preceding vehicle at that time, return -1.
+\item surr-veh-count-min-thw: counting the number of surrounding vehicles at the minimal THW. If there is no surrounding vehicle at that time, return 0.
+\item ego-braketime-until-min-thw: until minimal THW, how long the ego vehicle has braked.
+\item min-ttc: the minimal TTC of the scenario.
+\item ego-v-min-ttc: the absolute velocity at the minimal TTC.
+\item ego-acc-min-ttc: the acceleration at the minimal TTC.
+\item l-rel-pos-min-ttc: the relative distance between the rear vehicle and the ego vehicle at the minimal TTC. If there is no rear vehicle at that time, return -1.
+\item p-rel-pos-min-ttc: the relative distance between the preceding vehicle and the ego vehicle at the minimal TTC. If there is no preceding vehicle at that time, return -1.
+\item ll-rel-pos-min-ttc: the relative distance between the left-rear vehicle and the ego vehicle at the minimal TTC. If there is no left-rear vehicle at that time, return -1.
+\item pl-rel-pos-min-ttc: the relative distance between the left-preceding vehicle and the ego vehicle at the minimal TTC. If there is no left-preceding vehicle at that time, return -1.
+\item lr-rel-pos-min-ttc: the relative distance between the right-rear vehicle and the ego vehicle at the minimal TTC. If there is no right-rear vehicle at that time, return -1.
+\item pr-rel-pos-min-ttc: the relative distance between the right-preceding vehicle and the ego vehicle at the minimal TTC. If there is no right-preceding vehicle at that time, return -1.
+\item surr-veh-count-min-ttc: counting the number of surrounding vehicles at the minimal TTC. If there is no surrounding vehicle at that time, return 0.
+\item ego-braketime-until-min-ttc: until the minial TTC, how long the ego vehicle has braked.
+\end{enumerate}
+
+% that's all folks
+\end{document}

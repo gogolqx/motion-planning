@@ -1,0 +1,249 @@
+\documentclass[shortpres]{beamer}
+\usetheme{CambridgeUS}
+
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor%~~\beamer@ifempty{\insertshortinstitute}{}{(\insertshortinstitute)}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}\part{title}
+\beamertemplatenavigationsymbolsempty
+
+
+%color specification---------------------------------------------------------------
+\definecolor{TUMblue}{rgb}{0.00, 0.40, 0.74}
+\definecolor{TUMgray}{rgb}{0.85, 0.85, 0.86}
+\definecolor{TUMpantone285C}{rgb}{0.00, 0.45, 0.81}
+\definecolor{lightblue}{rgb}{0.7529,0.8118,0.9333}
+
+\setbeamercolor{block title}{fg=white, bg=TUMpantone285C}
+\setbeamercolor{block body}{bg=lightblue}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+%----------------------------------------------------------------------------------
+
+\setbeamercolor{frametitle}{fg=TUMblue, bg=white}
+\setbeamercolor{palette primary}{fg=TUMblue,bg=TUMgray}
+\setbeamercolor{palette secondary}{use=palette primary,fg=TUMblue,bg=white}
+\setbeamercolor{palette tertiary}{use=palette primary,fg=white, bg=TUMblue}
+\setbeamercolor{palette quaternary}{use=palette primary,fg=white,bg=TUMpantone285C}
+
+
+\setbeamercolor{title}{bg=white,fg=TUMblue}
+\setbeamercolor{item projected}{use=item,fg=black,bg = lightblue}
+\setbeamercolor{block title}{fg=black, bg=lightblue}
+\setbeamercolor{block body}{bg=white}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+%----------------------------------------------------------------------------------
+\setcounter{figure}{0}
+
+
+\usepackage{psfrag} %for \psfrag in figures
+\usepackage{algorithm,algpseudocode}  %for algorithm environment
+\usepackage{graphicx}
+
+\title[Motion Planning for Autonomous Vehicles]{Clustering Similar Traffic Scenarios}
+
+\author[Name]{Your Name}
+\institute[TU M\"unchen]{Technische Universit\"at M\"unchen}
+
+\date{November 20, 2019}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+\section{Problem Statement}	
+
+\begin{frame}{Problem of Testing and Validating Automated Vehicles}	
+
+\begin{itemize} 
+\item We need to test  and validate automated vehicles, but how?
+\vfill \item  Can we cover all situations that occur in a traffic?
+\vfill \item  Do we know all different situations that can occur, especially in microscopic level?
+\end{itemize}
+\end{frame}
+
+\section{Proposed Method}	
+
+\begin{frame}{Proposed Method}	
+
+\begin{itemize} 
+\item Cluster similar scenarios in order to group them based on their similarity, and test automated vehicle functions on a set of scenarios from each group to reduce testing and validation effort.
+\vfill \item  Optional: Hierarchical classification and automatic labeling of scenarios.
+\end{itemize}
+\end{frame}
+
+\section{Tasks}	
+
+\begin{frame}{Tasks}	
+
+\begin{itemize} 
+\item Data generation
+\vfill \item Feature extraction.
+\vfill \item Clustering
+\vfill \item Optional: Classification
+\end{itemize}
+\end{frame}
+
+\section{Data Generation}	
+
+\begin{frame}{Data Generation}	
+
+\begin{itemize} 
+\item Item 1
+\vfill \item Item 2
+\end{itemize}
+\end{frame}
+
+\section{Feature Extraction}	
+
+\begin{frame}{Feature Extraction}	
+
+\begin{itemize} 
+\item Item 1
+\vfill \item Item 2
+\end{itemize}
+\end{frame}
+
+\section{Clustering}	
+
+\begin{frame}{Clustering}	
+
+\begin{itemize} 
+\item Random forest
+\begin{itemize}
+\item A collection of random trees used for classification
+\item Generate synthetic points
+\item Use organic/synthetic as response variable
+\end{itemize}
+\item Proximity matrix
+\begin{itemize}
+\item Multiple ways to generate (Leafs, Paths)
+\item Multiple clustering algorithms (PAM, Hierarchical)
+\end{itemize}
+\item Visualization
+\begin{itemize}
+\item Heatmap, dendrogram $\rightarrow$ not much insight
+\item Parallel/sequential playback
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hierarchical Clustering}
+
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item \textbf{Goal:} Given a proximity matrix, compute clusters
+\item \textbf{Procedure:} Sequentially group similar data points together
+\item Questions:
+\begin{itemize}
+\item When to stop
+\item How to compute distance between clusters
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{figure}[h!]
+	\vspace{-1em}
+  \centering
+    \includegraphics[width=\textwidth]{dendro.png}
+  \vspace{-2em}
+  \caption{Dendrogram}
+\end{figure}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Proximity matrix}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{heatmap.png}
+  \caption{Distance matrix}
+\end{figure}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{figure}[h!]
+	\vspace{-1em}
+  \centering
+    \includegraphics[width=\textwidth]{map.png}
+  \vspace{-2em}
+  \caption{Sorted heatmap matrix}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Causes for similarity}
+
+Calculate correlation between clusters and features
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[width=\textwidth]{clusters.png}
+  \vspace{-2.4em}
+  \caption{Feature plots}
+\end{figure}
+
+\end{frame}
+
+\section{Classification}	
+
+\begin{frame}{Classification}	
+
+\begin{itemize} 
+\item Item 1
+\vfill \item Item 2
+\end{itemize}
+\end{frame}
+
+\section{Challanges}	
+
+\begin{frame}{Challanges Related to the Implementation}	
+
+\begin{itemize} 
+\item Data set is limited, so we can't get wide variety of scenarios.
+\vfill \item  Item 2.
+\vfill \item  Item 3.
+\end{itemize}
+\end{frame}
+
+\section{Timetable}	
+
+\begin{frame}{Timetable and Milestones}	
+
+There are total of 14 weeks from the start of the semester and until the final submission (if we exclude the vacations).
+
+\begin{itemize} 
+\item Week 1: Introduction lecture and software tutorial.
+\vfill \item  Week 2: Literature review
+\vfill \item  Week 3 and 4: Initial implementation of the tasks and preparation for the concept presentation.
+\vfill \item  Week 5:
+\vfill \item  Week 6:
+\vfill \item  Week 7:
+\vfill \item  Week 8:
+\vfill \item  Week 9:
+\vfill \item  Week 10:
+\vfill \item  Week 11 to 14: Writing report and preparing for the final presentation. (this would be best case scenario, we can change it)
+\end{itemize}
+
+\end{frame}
+
+\end{document}

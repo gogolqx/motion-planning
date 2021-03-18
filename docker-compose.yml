@@ -1,0 +1,276 @@
+version: '2.2'
+
+services:
+  # Naming of services: DATASET NAME - DATASET SIZE - FEATURE COMBINATION
+  # For examle: dhw-small-all means DHW DATASET SMALL is being used for the data, and ALL FEATURES are included
+  #
+  # List of services:
+  #
+  #  dhw-small-all
+  #  dhw-small-dhw
+  #  dhw-small-thw
+  #  dhw-small-ttc
+  #
+  #  thw-small-all
+  #  thw-small-dhw
+  #  thw-small-thw
+  #  thw-small-ttc
+  #
+  #  ttc-small-all
+  #  ttc-small-dhw
+  #  ttc-small-thw
+  #  ttc-small-ttc
+  #
+  #  dhw-big-all
+  #  dhw-big-dhw
+  #  dhw-big-thw
+  #  dhw-big-ttc
+  #
+  #  thw-big-all
+  #  thw-big-dhw
+  #  thw-big-thw
+  #  thw-big-ttc
+  #
+  #  ttc-big-all
+  #  ttc-big-dhw
+  #  ttc-big-thw
+  #  ttc-big-ttc
+
+  # Individual services can be run by calling: docker-compose run servicename
+  # More than one service can be run at the same time: docker-compose run servicename1 servicename2 ..
+  # All off the services can be run at the same time: docker-compose run (NOT RECOMMENDED)
+
+  # NOTE: Don't forget to rebuild services if there are changes to the code before running them
+  # Example: docker-compose build servicename && docker-compose run servicename
+
+  # NOTE2: If you want to run services detached, don't forget to add -d after the run command.
+  # Example: docker-compose run -d servicename
+
+  # Hyperparameters can be modified using the .env files.
+  # all.env: hyper parameters for the intances with ALL FEATURES included
+  # dhw.env: hyper parameters for the intances with DHW FEATURES included
+  # thw.env: hyper parameters for the intances with THW FEATURES included
+  # ttc.env: hyper parameters for the intances with TTC FEATURES included
+
+  # DHW Small Dataset
+  dhw-small-all:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/dhw-small-all:/clustering/outputs
+    env_file:
+      - ./all.env
+
+  dhw-small-dhw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/dhw-small-dhw:/clustering/outputs
+    env_file:
+      - ./dhw.env
+
+  dhw-small-thw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/dhw-small-thw:/clustering/outputs
+    env_file:
+      - ./thw.env
+
+  dhw-small-ttc:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/dhw-small-ttc:/clustering/outputs
+    env_file:
+      - ./ttc.env
+
+  # THW Small Dataset
+  thw-small-all:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/thw-small-all:/clustering/outputs
+    env_file:
+      - ./all.env
+
+  thw-small-dhw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/thw-small-dhw:/clustering/outputs
+    env_file:
+      - ./dhw.env
+
+  thw-small-thw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/thw-small-thw:/clustering/outputs
+    env_file:
+      - ./thw.env
+
+  thw-small-ttc:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw_only_lanechanging.csv:/clustering/features.csv
+      - ./results/thw-small-ttc:/clustering/outputs
+    env_file:
+      - ./ttc.env
+
+  # TTC Small Dataset
+  ttc-small-all:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc_only_lanechanging.csv:/clustering/features.csv
+      - ./results/ttc-small-all:/clustering/outputs
+    env_file:
+      - ./all.env
+
+  ttc-small-dhw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc_only_lanechanging.csv:/clustering/features.csv
+      - ./results/ttc-small-dhw:/clustering/outputs
+    env_file:
+      - ./dhw.env
+
+  ttc-small-thw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc_only_lanechanging.csv:/clustering/features.csv
+      - ./results/ttc-small-thw:/clustering/outputs
+    env_file:
+      - ./thw.env
+
+  ttc-small-ttc:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc_only_lanechanging.csv:/clustering/features.csv
+      - ./results/ttc-small-ttc:/clustering/outputs
+    env_file:
+      - ./ttc.env
+
+  # DHW Big Dataset
+  dhw-big-all:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw.csv:/clustering/features.csv
+      - ./results/dhw-big-all:/clustering/outputs
+    env_file:
+      - ./all.env
+
+  dhw-big-dhw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw.csv:/clustering/features.csv
+      - ./results/dhw-big-dhw:/clustering/outputs
+    env_file:
+      - ./dhw.env
+
+  dhw-big-thw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw.csv:/clustering/features.csv
+      - ./results/dhw-big-thw:/clustering/outputs
+    env_file:
+      - ./thw.env
+
+  dhw-big-ttc:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_dhw.csv:/clustering/features.csv
+      - ./results/dhw-big-ttc:/clustering/outputs
+    env_file:
+      - ./ttc.env
+
+  # THW Big Dataset
+  thw-big-all:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw.csv:/clustering/features.csv
+      - ./results/thw-big-all:/clustering/outputs
+    env_file:
+      - ./all.env
+
+  thw-big-dhw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw.csv:/clustering/features.csv
+      - ./results/thw-big-dhw:/clustering/outputs
+    env_file:
+      - ./dhw.env
+
+  thw-big-thw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw.csv:/clustering/features.csv
+      - ./results/thw-big-thw:/clustering/outputs
+    env_file:
+      - ./thw.env
+
+  thw-big-ttc:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_thw.csv:/clustering/features.csv
+      - ./results/thw-big-ttc:/clustering/outputs
+    env_file:
+      - ./ttc.env
+
+  # TTC Big Dataset
+  ttc-big-all:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc.csv:/clustering/features.csv
+      - ./results/ttc-big-all:/clustering/outputs
+    env_file:
+      - ./all.env
+
+  ttc-big-dhw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc.csv:/clustering/features.csv
+      - ./results/ttc-big-dhw:/clustering/outputs
+    env_file:
+      - ./dhw.env
+
+  ttc-big-thw:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc.csv:/clustering/features.csv
+      - ./results/ttc-big-thw:/clustering/outputs
+    env_file:
+      - ./thw.env
+
+  ttc-big-ttc:
+    image: clustering_base
+    command: bash -c "bash entrypoint.sh"
+    volumes:
+      - ./feature_extraction/features_ttc.csv:/clustering/features.csv
+      - ./results/ttc-big-ttc:/clustering/outputs
+    env_file:
+      - ./ttc.env
+
